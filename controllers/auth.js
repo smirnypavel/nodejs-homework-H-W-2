@@ -11,9 +11,9 @@ const register = async (req, res, next) => {
     throw HttpError(409, "Email in use");
   }
 
-  const hasPassword = await bcrypt.hash(password, 10);
+  const hashPassword = await bcrypt.hash(password, 10);
 
-  const newUser = await User.create({ ...req.body, password: hasPassword });
+  const newUser = await User.create({ ...req.body, password: hashPassword });
 
   res.status(201).json({
     email: newUser.email,
@@ -39,7 +39,7 @@ const login = async (req, res, next) => {
     contactId: user._id,
   };
 
-  const token = jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: "1w" });
+  const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1w" });
   await User.findByIdAndUpdate(user._id, { token });
 
   res.json({
