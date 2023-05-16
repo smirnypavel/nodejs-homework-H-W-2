@@ -83,9 +83,20 @@ const resendVerificationEmail = async (req, res, next) => {
   await sendMail({
     to: email,
     subject: "Verification Email",
-    html: `<h1>Verification Email</h1>
-      <p>Please click the following link to verify your email:</p>
-      <a href="http://127.0.0.1:5000/api/users/verify/${verificationToken}">Verify Email</a>`,
+    html: `<h1>Привет ${email}</h1>
+    <p>
+    <br>Мы рады видеть вас в нашем онлайн-сообществе!
+    <br>Пожалуйста, подтвердите свою электронную почту, чтобы завершить регистрацию:
+   
+    <br> Нажмите на ссылку для подтверждения аккаунта.
+    <br> После этого вы сможете войти в свой аккаунт и начать пользоваться нашим сервисом.
+    <br>Если вы не регистрировались у нас, просто проигнорируйте это письмо.
+    
+    <br>Спасибо и до скорой встречи!
+    
+    <br>С уважением,
+    <br>Команда "PhoneBook"</p> 
+    <a href="http://127.0.0.1:5000/api/users/verify/${verificationToken}">Confirm your email</a> `,
   });
 
   return res.status(200).json({ message: "Verification email sent" });
