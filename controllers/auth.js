@@ -17,9 +17,6 @@ const register = async (req, res, next) => {
   if (user) {
     throw HttpError(409, "Email in use");
   }
-  if (user.verify) {
-    throw HttpError(400, "Verification has already been passed");
-  }
 
   const hasPassword = await bcrypt.hash(password, 10);
   const avatarURL = gravatar.url(email);
